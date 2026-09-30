@@ -1,0 +1,52 @@
+{
+  "accuracy": 0.9903135355595207,
+  "precision": 0.9888059701492538,
+  "recall": 0.9982876712328768,
+  "f1": 0.9935241990456715,
+  "confusion_matrix": [
+    [
+      970,
+      33
+    ],
+    [
+      5,
+      2915
+    ]
+  ],
+  "classification_report": {
+    "benign": {
+      "precision": 0.9948717948717949,
+      "recall": 0.967098703888335,
+      "f1-score": 0.980788675429727,
+      "support": 1003.0
+    },
+    "malicious": {
+      "precision": 0.9888059701492538,
+      "recall": 0.9982876712328768,
+      "f1-score": 0.9935241990456715,
+      "support": 2920.0
+    },
+    "accuracy": 0.9903135355595207,
+    "macro avg": {
+      "precision": 0.9918388825105243,
+      "recall": 0.9826931875606059,
+      "f1-score": 0.9871564372376993,
+      "support": 3923.0
+    },
+    "weighted avg": {
+      "precision": 0.9903568297456619,
+      "recall": 0.9903135355595207,
+      "f1-score": 0.990268086329181,
+      "support": 3923.0
+    }
+  },
+  "model": "RandomForestClassifier",
+  "dataset_rows": 19611,
+  "train_size": 15688,
+  "test_size": 3923,
+  "feature_count": 73,
+  "label_semantics": {
+    "0": "benign",
+    "1": "malicious"
+  }
+}

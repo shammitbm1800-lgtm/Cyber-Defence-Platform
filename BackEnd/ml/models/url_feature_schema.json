@@ -1,0 +1,12 @@
+[
+  "dot_count",
+  "url_len",
+  "digit_count",
+  "special_count",
+  "hyphen_count",
+  "double_slash",
+  "single_slash",
+  "at_the_rate",
+  "protocol",
+  "protocol_count"
+]

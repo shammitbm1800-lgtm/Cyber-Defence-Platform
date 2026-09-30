@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Defence Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .ocr-card {
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(37, 99, 235, 0.14);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.55);
+        }
+        [data-theme="dark"] .ocr-card { background: rgba(15, 23, 42, 0.45); }
+        .ocr-card label { display: block; margin-bottom: 0.8rem; font-weight: 600; }
+        .ocr-card .file-upload-wrapper { margin-bottom: 1rem; }
+        #report-body { overflow-wrap: anywhere; word-break: break-word; }
+        #report-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    </style>
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <!-- Holographic Cyber Radar & Circuit Canvas -->
+    <canvas id="cyber-canvas"></canvas>
+
+    <!-- Navigation Header -->
+    <nav id="navbar" class="hidden">
+        <div class="nav-container">
+            <div class="logo" id="logo-home" style="cursor: pointer;">
+                <img src="images/logo.png" alt="Cyber Defence Platform Logo" class="logo-img">
+                <span>Cyber Defence Platform</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#" data-target="dashboard" class="nav-link active"><i class="ph ph-house"></i> Home</a></li>
+                <li><a href="#" data-target="website-view" class="nav-link"><i class="ph ph-globe"></i> Web URL</a></li>
+                <li><a href="#" data-target="ocr-view" class="nav-link"><i class="ph ph-scan"></i> OCR Scan</a></li>
+                <li><a href="#" data-target="email-view" class="nav-link"><i class="ph ph-envelope-simple"></i> Email</a></li>
+                <li><a href="#" data-target="sms-view" class="nav-link"><i class="ph ph-chat-teardrop-text"></i> SMS</a></li>
+                <li><a href="#" data-target="ransomware-view" class="nav-link"><i class="ph ph-warning-octagon"></i> Ransomware</a></li>
+                <li><a href="#" data-target="file-view" class="nav-link"><i class="ph ph-file-magnifying-glass"></i> File Analyzer</a></li>
+                <li><a href="#" data-target="history-view" class="nav-link"><i class="ph ph-clock-counter-clockwise"></i> History</a></li>
+                <li id="admin-nav-item" class="hidden"><a href="#" data-target="admin-view" class="nav-link text-warning"><i class="ph ph-shield-star"></i> Admin Panel</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <!-- Theme Switcher Button (Top Right Corner) -->
+                <button id="theme-toggle" class="icon-btn" title="Toggle Light/Dark Theme">
+                    <i class="ph ph-moon" id="theme-icon"></i>
+                </button>
+
+                <!-- User Badge -->
+                <span id="user-badge" class="badge-user">Guest</span>
+
+                <!-- Settings Button -->
+                <button id="settings-btn" class="btn btn-secondary btn-sm" title="Settings Options">
+                    <i class="ph ph-gear"></i> Settings
+                </button>
+
+                <!-- Quick Logout Button -->
+                <button id="logout-btn" class="icon-btn text-danger" title="Logout">
+                    <i class="ph ph-sign-out"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        
+        <!-- Authentication View (Login / Register / Guest) -->
+        <section id="login-view" class="view-section active">
+            <div class="auth-wrapper">
+                <div class="auth-header-top">
+                    <!-- Theme Toggle on Login Screen -->
+                    <button id="auth-theme-toggle" class="theme-toggle-floating" title="Toggle Theme">
+                        <i class="ph ph-moon" id="auth-theme-icon"></i> Switch Theme
+                    </button>
+                </div>
+
+                <div class="login-container">
+                    <div class="login-header">
+                        <div class="login-logo-wrapper mb-3">
+                            <img src="images/logo.png" alt="Cyber Defence Platform Logo" class="login-logo-img">
+                        </div>
+                        <h2>Cyber Defence Platform</h2>
+                        <p id="auth-subtitle">Log in to access advanced cybersecurity threat scanners</p>
+                    </div>
+
+                    <!-- Auth Tabs -->
+                    <div class="auth-tabs">
+                        <button id="tab-login" class="auth-tab active">Sign In</button>
+                        <button id="tab-register" class="auth-tab">Register Account</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form" class="auth-form">
+                        <div class="input-group">
+                            <label for="username">Username or Email</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-user"></i>
+                                <input type="text" id="username" placeholder="admin or user" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-lock"></i>
+                                <input type="password" id="password" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full mb-3">
+                            <i class="ph ph-sign-in"></i> Sign In
+                        </button>
+                        
+                        <div class="divider"><span>OR</span></div>
+
+                        <button type="button" id="guest-btn" class="btn btn-secondary btn-full mb-3">
+                            <i class="ph ph-user-circle"></i> Continue as Guest
+                        </button>
+
+                        <div class="auth-hint">
+                            <small><strong>Demo Quick Access:</strong><br>
+                            Admin: <code>admin</code> / <code>admin123</code><br>
+                            Guests can test the Website URL scanner. Other features prompt for login.</small>
+                        </div>
+                    </form>
+
+                    <!-- Registration Form -->
+                    <form id="register-form" class="auth-form hidden">
+                        <div class="input-group">
+                            <label for="reg-fullname">Full Name</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-id-card"></i>
+                                <input type="text" id="reg-fullname" placeholder="John Doe" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-username">Choose Username</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-user"></i>
+                                <input type="text" id="reg-username" placeholder="johndoe" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-email">Email Address (Confirmation Sent Here)</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-envelope"></i>
+                                <input type="email" id="reg-email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-lock"></i>
+                                <input type="password" id="reg-password" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full mb-3">
+                            <i class="ph ph-user-plus"></i> Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard View -->
+        <section id="dashboard" class="view-section hidden">
+            <div class="hero-section">
+                <div class="badge">
+                    <i class="ph ph-shield-check"></i> Enterprise-Grade Security Engine
+                </div>
+                <h1 class="hero-title">Protect Your Digital<br>Assets with Confidence</h1>
+                <p class="hero-subtitle">
+                    Real-time monitoring, threat detection, and comprehensive cybersecurity intelligence.
+                </p>
+            </div>
+
+            <!-- Our Security Services -->
+            <div class="services-section">
+                <h2 class="section-title">Our Security Services</h2>
+                <p class="section-subtitle">Comprehensive threat scanners designed to safeguard your business at every vector</p>
+                
+                <div class="services-grid">
+                    <!-- Website URL Scanner -->
+                    <div class="service-card nav-card" data-target="website-view">
+                        <div class="service-icon"><i class="ph ph-globe"></i></div>
+                        <h3>Web Protection</h3>
+                        <p>Real-time URL scanning, SSL verification, and phishing site heuristic detection.</p>
+                        <span class="card-action">Launch Scanner <i class="ph ph-arrow-right"></i></span>
+                    </div>
+
+                    <!-- Email Scanner -->
+                    <div class="service-card nav-card" data-target="email-view">
+                        <div class="service-icon"><i class="ph ph-envelope-simple"></i></div>
+                        <h3>Email Security</h3>
+                        <p>Advanced phishing detection and email header inspection to block spoofing attacks.</p>
+                        <span class="card-action">Launch Scanner <i class="ph ph-arrow-right"></i></span>
+                    </div>
+
+                    <!-- SMS Scanner -->
+                    <div class="service-card nav-card" data-target="sms-view">
+                        <div class="service-icon"><i class="ph ph-chat-teardrop-text"></i></div>
+                        <h3>SMS Security</h3>
+                        <p>Smishing & SMS spam analysis identifying malicious shortlinks and bank impersonation.</p>
+                        <span class="card-action">Launch Scanner <i class="ph ph-arrow-right"></i></span>
+                    </div>
+
+                    <!-- Ransomware Scanner -->
+                    <div class="service-card nav-card" data-target="ransomware-view">
+                        <div class="service-icon"><i class="ph ph-warning-octagon"></i></div>
+                        <h3>Ransomware Protection</h3>
+                        <p>Binary analysis, file signature matching, and heuristic payload inspection.</p>
+                        <span class="card-action">Launch Scanner <i class="ph ph-arrow-right"></i></span>
+                    </div>
+
+                    <!-- AI Malicious File Analyzer -->
+                    <div class="service-card nav-card" data-target="file-view">
+                        <div class="service-icon"><i class="ph ph-file-magnifying-glass"></i></div>
+                        <h3>AI Malicious File Analyzer</h3>
+                        <p>Static PE analysis, SHA-256 hashing, suspicious-feature detection, and ML classification.</p>
+                        <span class="card-action">Launch Analyzer <i class="ph ph-arrow-right"></i></span>
+                    </div>
+
+                    <!-- Screenshot OCR Scanner -->
+                    <div class="service-card nav-card" data-target="ocr-view">
+                        <div class="service-icon"><i class="ph ph-scan"></i></div>
+                        <h3>Screenshot OCR</h3>
+                        <p>Extract and analyze URLs, emails, and SMS messages directly from screenshots.</p>
+                        <span class="card-action">Launch Scanner <i class="ph ph-arrow-right"></i></span>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-chart-line-up"></i></div>
+                        <h3>24/7 Threat Monitoring</h3>
+                        <p>Continuous network traffic assessment and automated threat mitigation systems.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-users"></i></div>
+                        <h3>Expert Support</h3>
+                        <p>Dedicated cybersecurity response specialists available for rapid incident response.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phishing Email View -->
+        <section id="email-view" class="view-section hidden">
+            <div class="analysis-container">
+                <div class="view-header">
+                    <h2 class="view-title"><i class="ph ph-envelope-simple text-blue"></i> Email Content Analysis</h2>
+                    <span class="badge-scan-type">Phishing Email</span>
+                </div>
+                <div class="form-card">
+                    <label for="email-content">Paste Email Content & Headers *</label>
+                    <textarea id="email-content" class="form-control" rows="11" style="min-height: 260px;" placeholder="Paste the suspicious email text, subject line, or raw headers here..."></textarea>
+                    
+                    <div class="info-box">
+                        <strong><i class="ph ph-shield-warning"></i> Inspection Metrics:</strong>
+                        <ul>
+                            <li>Sender address DKIM/SPF verification</li>
+                            <li>Embedded URL domain risk scoring</li>
+                            <li>Grammar & urgent financial call-to-actions</li>
+                            <li>Credential harvesting patterns</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-full analyze-btn" data-type="Phishing Email">
+                        <i class="ph ph-magnifying-glass"></i> Analyze Email Content
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phishing Website View -->
+        <section id="website-view" class="view-section hidden">
+            <div class="analysis-container">
+                <div class="view-header">
+                    <h2 class="view-title"><i class="ph ph-globe text-blue"></i> Website URL Analysis</h2>
+                    <span class="badge-scan-type">Phishing Website</span>
+                </div>
+                <div class="form-card">
+                    <label for="website-url">Enter Website URL *</label>
+                    <div class="input-wrapper url-wrapper">
+                        <i class="ph ph-link"></i>
+                        <input type="url" id="website-url" class="form-control" placeholder="https://suspicious-login-portal.com">
+                    </div>
+                    
+                    <div class="info-box">
+                        <strong><i class="ph ph-shield-warning"></i> Inspection Metrics:</strong>
+                        <ul>
+                            <li>WHOIS domain registration age & location</li>
+                            <li>SSL / TLS certificate authenticity</li>
+                            <li>Obfuscated JavaScript & typosquatting analysis</li>
+                            <li>Blacklist cross-reference against active threat intelligence</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-full analyze-btn" data-type="Phishing Website">
+                        <i class="ph ph-magnifying-glass"></i> Analyze URL Risk
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screenshot OCR View -->
+        <section id="ocr-view" class="view-section hidden">
+            <div class="analysis-container max-w-1000">
+                <div class="view-header">
+                    <h2 class="view-title"><i class="ph ph-scan text-blue"></i> Screenshot OCR Analysis</h2>
+                    <span class="badge-scan-type">OCR Threat Detection</span>
+                </div>
+
+                <div class="form-card">
+                    <p class="text-muted">
+                        Upload a screenshot containing a URL, email, or SMS message.
+                        The platform extracts the text and sends it through the corresponding threat-detection pipeline.
+                    </p>
+
+                    <div class="ocr-card">
+                        <label for="ocr-url-file">Website / URL Screenshot</label>
+                        <div class="file-upload-wrapper">
+                            <i class="ph ph-image"></i>
+                            <p>Choose a screenshot containing a website URL.</p>
+                            <input type="file" id="ocr-url-file" accept="image/*" class="file-input">
+                            <span id="ocr-url-file-name" class="file-name-display"></span>
+                        </div>
+                        <button class="btn btn-primary btn-full ocr-analyze-btn" data-ocr-type="url">
+                            <i class="ph ph-globe"></i> Scan URL Screenshot
+                        </button>
+                    </div>
+
+                    <div class="ocr-card mt-4">
+                        <label for="ocr-email-file">Email Screenshot</label>
+                        <div class="file-upload-wrapper">
+                            <i class="ph ph-image"></i>
+                            <p>Choose a screenshot containing an email.</p>
+                            <input type="file" id="ocr-email-file" accept="image/*" class="file-input">
+                            <span id="ocr-email-file-name" class="file-name-display"></span>
+                        </div>
+                        <button class="btn btn-primary btn-full ocr-analyze-btn" data-ocr-type="email">
+                            <i class="ph ph-envelope-simple"></i> Scan Email Screenshot
+                        </button>
+                    </div>
+
+                    <div class="ocr-card mt-4">
+                        <label for="ocr-sms-file">SMS Screenshot</label>
+                        <div class="file-upload-wrapper">
+                            <i class="ph ph-image"></i>
+                            <p>Choose a screenshot containing an SMS message.</p>
+                            <input type="file" id="ocr-sms-file" accept="image/*" class="file-input">
+                            <span id="ocr-sms-file-name" class="file-name-display"></span>
+                        </div>
+                        <button class="btn btn-primary btn-full ocr-analyze-btn" data-ocr-type="sms">
+                            <i class="ph ph-chat-teardrop-text"></i> Scan SMS Screenshot
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SMS Spam View -->
+        <section id="sms-view" class="view-section hidden">
+            <div class="analysis-container">
+                <div class="view-header">
+                    <h2 class="view-title"><i class="ph ph-chat-teardrop-text text-blue"></i> SMS Spam & Smishing Analysis</h2>
+                    <span class="badge-scan-type">SMS Spam</span>
+                </div>
+                <div class="form-card">
+                    <label for="sms-content">Paste SMS Message *</label>
+                    <textarea id="sms-content" class="form-control" rows="4" placeholder="e.g. 'URGENT: Your account has been suspended. Verify now at bit.ly/3x89...'"></textarea>
+                    
+                    <div class="info-box">
+                        <strong><i class="ph ph-shield-warning"></i> Inspection Metrics:</strong>
+                        <ul>
+                            <li>Shortened URL destination expansion</li>
+                            <li>Bank impersonation & urgency keywords</li>
+                            <li>Sender phone number reputation check</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-full analyze-btn" data-type="SMS Spam">
+                        <i class="ph ph-magnifying-glass"></i> Analyze Text Message
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ransomware View -->
+        <section id="ransomware-view" class="view-section hidden">
+            <div class="analysis-container">
+                <div class="view-header">
+                    <h2 class="view-title"><i class="ph ph-warning-octagon text-blue"></i> Ransomware & File Analysis</h2>
+                    <span class="badge-scan-type">Ransomware</span>
+                </div>
+                <div class="form-card">
+                    <label>Upload Suspicious Executable / Document *</label>
+                    <div class="file-upload-wrapper" id="drop-zone">
+                        <i class="ph ph-upload-simple"></i>
+                        <p>Drag & Drop file here or <strong>click to browse</strong></p>
+                        <input type="file" id="ransomware-file" class="file-input">
+                        <span id="file-name" class="file-name-display"></span>
+                    </div>
+                    
+                    <div class="info-box">
+                        <strong><i class="ph ph-shield-warning"></i> Inspection Metrics:</strong>
+                        <ul>
+                            <li>SHA-256 Hash signature match</li>
+                            <li>Heuristic executable analysis for encryption routines</li>
+                            <li>Macro & script extraction (.exe, .pdf, .docx, .zip)</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-full analyze-btn" data-type="Ransomware">
+                        <i class="ph ph-magnifying-glass"></i> Analyze File Payload
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Malicious File Analyzer View -->
+        <section id="file-view" class="view-section hidden">
+            <div class="analysis-container max-w-1000">
+                <div class="view-header">
+                    <div>
+                        <h2 class="view-title"><i class="ph ph-file-magnifying-glass text-blue"></i> AI Malicious File Analyzer</h2>
+                        <p class="text-muted">Static PE inspection powered by the platform's local machine-learning model.</p>
+                    </div>
+                    <span class="badge-scan-type"><i class="ph ph-brain"></i> ML + Static</span>
+                </div>
+
+                <div class="form-card file-analyzer-card">
+                    <div class="file-analyzer-engine-strip">
+                        <div class="file-analyzer-engine-item">
+                            <span class="file-analyzer-engine-dot"></span>
+                            <div>
+                                <strong>Local ML Engine</strong>
+                                <span>Random Forest classifier</span>
+                            </div>
+                        </div>
+                        <div class="file-analyzer-engine-divider"></div>
+                        <div class="file-analyzer-engine-item">
+                            <i class="ph ph-shield-check"></i>
+                            <div>
+                                <strong>Static Analysis Only</strong>
+                                <span>Uploaded files are never executed</span>
+                            </div>
+                        </div>
+                        <div id="file-analyzer-model-status" class="file-analyzer-model-status pending">
+                            <i class="ph ph-circle-notch ph-spin"></i> Checking ML model...
+                        </div>
+                    </div>
+
+                    <p class="text-muted file-analyzer-intro">
+                        Upload a file for a safe, evidence-based assessment. Trained local ML models are available for Windows PE, PDF, and ELF files; other file types receive hash/basic static inspection without a made-up ML verdict.
+                    </p>
+
+                    <div class="file-upload-wrapper file-analyzer-drop-zone" id="file-analyzer-drop-zone">
+                        <div class="file-upload-icon-wrap">
+                            <i class="ph ph-upload-simple"></i>
+                        </div>
+                        <p><strong>Drag & Drop your file here</strong></p>
+                        <span>or click to browse · EXE, DLL, SYS, SCR, CPL, OCX, EFI, COM · Max 50 MB</span>
+                        <input type="file" id="file-analyzer-file" class="file-input"
+                               accept=".exe,.dll,.sys,.scr,.cpl,.ocx,.efi,.com">
+                        <div id="file-analyzer-name" class="file-name-display"></div>
+                    </div>
+
+                    <label class="checkbox-row file-analyzer-quarantine-row">
+                        <input type="checkbox" id="file-analyzer-quarantine">
+                        <span>Quarantine this uploaded file after analysis</span>
+                        <span class="text-muted text-sm">(optional)</span>
+                    </label>
+
+                    <div class="info-box file-analyzer-info-box">
+                        <strong><i class="ph ph-shield-warning"></i> What will be checked</strong>
+                        <div class="file-analyzer-check-grid">
+                            <span><i class="ph ph-fingerprint"></i> SHA-256 fingerprint</span>
+                            <span><i class="ph ph-file-code"></i> File format & structural features</span>
+                            <span><i class="ph ph-waveform"></i> Section entropy</span>
+                            <span><i class="ph ph-plugs-connected"></i> Suspicious imports</span>
+                            <span><i class="ph ph-tree-structure"></i> Static PE features</span>
+                            <span><i class="ph ph-brain"></i> Random Forest prediction</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-full file-analyzer-submit" id="file-analyzer-btn">
+                        <i class="ph ph-brain"></i> Analyze File with AI
+                    </button>
+
+                    <div id="file-analyzer-result" class="file-analyzer-result hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History View -->
+        <section id="history-view" class="view-section hidden">
+            <div class="analysis-container max-w-1000">
+                <div class="view-header flex-between">
+                    <div>
+                        <h2 class="view-title"><i class="ph ph-clock-counter-clockwise text-blue"></i> Security Scan History</h2>
+                        <p class="text-muted">Audit trail of all performed threat assessments</p>
+                    </div>
+                    <button id="clear-history-btn" class="btn btn-outline-danger btn-sm">
+                        <i class="ph ph-trash"></i> Clear History
+                    </button>
+                </div>
+
+                <div class="card-table-wrapper">
+                    <table class="data-table" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Scan Category</th>
+                                <th>Target / Content Snippet</th>
+                                <th>Status</th>
+                                <th>Risk Score</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                    <div id="history-empty" class="empty-state hidden">
+                        <i class="ph ph-folder-open"></i>
+                        <p>No threat scans recorded yet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin View -->
+        <section id="admin-view" class="view-section hidden">
+            <div class="analysis-container max-w-1000">
+                <div class="view-header">
+                    <h2 class="view-title"><i class="ph ph-shield-star text-warning"></i> Admin Management Console</h2>
+                    <span class="badge-admin">System Admin Access</span>
+                </div>
+
+                <!-- Admin Metrics -->
+                <div class="admin-metrics-grid">
+                    <div class="metric-card">
+                        <i class="ph ph-users-three text-primary"></i>
+                        <div class="metric-info">
+                            <h3 id="admin-stat-users">0</h3>
+                            <span>Registered Users</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="ph ph-pulse text-blue"></i>
+                        <div class="metric-info">
+                            <h3 id="admin-stat-scans">0</h3>
+                            <span>Total Scans</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="ph ph-shield-warning text-danger"></i>
+                        <div class="metric-info">
+                            <h3 id="admin-stat-threats">0</h3>
+                            <span>Threats Detected</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Management Table -->
+                <div class="admin-block mt-4">
+                    <h3 class="admin-block-title"><i class="ph ph-user-list"></i> User Account Management</h3>
+                    <div class="card-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+			            <th>Created</th>	
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-user-table-body">
+                                <!-- Injected by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer id="footer" class="hidden">
+        <div class="footer-container">
+            <div class="footer-stats">
+                <div class="stat-item">
+                    <i class="ph-fill ph-check-circle text-blue"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-uploaded">0</span>
+                        <span class="stat-label">Items Analyzed</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="ph-fill ph-warning text-danger"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-identified">0</span>
+                        <span class="stat-label">Threats Identified</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <h4>Cyber Defence Platform</h4>
+                <p><i class="ph ph-shield-check text-blue"></i> Enterprise Threats Monitoring</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Cyber Defence Platform. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- UNIFIED SETTINGS MODAL -->
+    <div id="profile-modal" class="modal hidden">
+        <div class="modal-content max-w-550">
+            <span class="close-btn" id="profile-close-btn">&times;</span>
+            <div class="modal-body">
+                <div class="settings-modal-header">
+                    <i class="ph ph-gear text-blue text-2xl"></i>
+                    <h3>Platform Settings</h3>
+                </div>
+
+                <!-- Settings Tabs -->
+                <div class="auth-tabs mt-3">
+                    <button id="tab-settings-account" class="auth-tab active">Account & Preferences</button>
+                    <button id="tab-settings-contact" class="auth-tab">Contact Experts</button>
+                </div>
+
+                <!-- Tab 1: Account & Preferences -->
+                <div id="settings-account-sec" class="settings-sec-content">
+                    <div class="profile-header mt-3">
+                        <div class="avatar-circle" id="profile-avatar">U</div>
+                        <div>
+                            <h3 id="profile-name">User Profile</h3>
+                            <span id="profile-role" class="badge-user">User</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Username:</span>
+                            <span id="profile-username" class="detail-val">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Email:</span>
+                            <span id="profile-email" class="detail-val">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Account Deletion Zone -->
+                    <div class="danger-zone mt-4">
+                        <h4>Account Danger Zone</h4>
+                        <p class="text-muted">Deleting your account purges your login credentials and personal records.</p>
+                        <button id="delete-account-btn" class="btn btn-danger btn-full mt-3">
+                            <i class="ph ph-trash"></i> Delete Account
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Contact Security Team -->
+<div id="settings-contact-sec" class="settings-sec-content hidden">
+
+    <div class="contact-header">
+        <div class="contact-header-icon">
+            <i class="ph ph-shield-check"></i>
+        </div>
+
+        <div>
+            <h4>Contact Security Team</h4>
+            <p>
+                Reach out to our SOC specialists for security
+                assessments, technical assistance, or platform inquiries.
+            </p>
+        </div>
+    </div>
+
+    <div class="contact-info-banner">
+        <i class="ph ph-info"></i>
+        <span>
+            Your message will be securely delivered to our
+            Cyber Defence support team.
+        </span>
+    </div>
+
+    <form
+        class="contact-form"
+        id="contact-form"
+        style="padding: 0; background: transparent; border: none; box-shadow: none;"
+    >
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label for="contact-first-name">First Name</label>
+
+                <div class="contact-input-wrapper">
+                    <i class="ph ph-user"></i>
+
+                    <input
+                        type="text"
+                        id="contact-first-name"
+                        class="form-control"
+                        placeholder="Alex"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="contact-last-name">Last Name</label>
+
+                <div class="contact-input-wrapper">
+                    <i class="ph ph-user"></i>
+
+                    <input
+                        type="text"
+                        id="contact-last-name"
+                        class="form-control"
+                        placeholder="Smith"
+                        required
+                    >
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="contact-email">Work Email Address</label>
+
+            <div class="contact-input-wrapper">
+                <i class="ph ph-envelope"></i>
+
+                <input
+                    type="email"
+                    id="contact-email"
+                    class="form-control"
+                    placeholder="alex@company.com"
+                    required
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="contact-company">Company / Organization</label>
+
+            <div class="contact-input-wrapper">
+                <i class="ph ph-buildings"></i>
+
+                <input
+                    type="text"
+                    id="contact-company"
+                    class="form-control"
+                    placeholder="TechCorp Global"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="contact-message">Message</label>
+
+            <div class="contact-textarea-wrapper">
+                <i class="ph ph-chat-text"></i>
+
+                <textarea
+                    id="contact-message"
+                    class="form-control"
+                    rows="5"
+                    placeholder="Describe your security requirements..."
+                    required
+                ></textarea>
+            </div>
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-primary btn-full contact-submit-btn"
+        >
+            <i class="ph ph-paper-plane-tilt"></i>
+            Send Inquiry to SOC
+        </button>
+
+        <div class="contact-security-note">
+            <i class="ph ph-lock-simple"></i>
+            <span>
+                Your information is transmitted securely and is only
+                used to respond to your inquiry.
+            </span>
+        </div>
+
+    </form>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Registration OTP Verification Modal -->
+<div id="reg-email-modal" class="modal hidden">
+    <div class="modal-content text-center">
+
+        <span class="close-btn" id="reg-email-close-btn">&times;</span>
+
+        <div class="modal-body">
+
+            <div class="prompt-modal-icon">
+                <i class="ph-fill ph-envelope-simple-open"></i>
+            </div>
+
+            <h3>Verify Your Email</h3>
+
+            <p class="mt-3 text-muted">
+                We sent a 6-digit verification code to:
+            </p>
+
+            <h4
+                id="reg-email-target"
+                class="text-primary mt-3"
+            >
+                user@example.com
+            </h4>
+
+            <p class="mt-3 text-sm text-muted">
+                Enter the OTP sent to your email.
+                The code is valid for 10 minutes.
+            </p>
+
+            <input
+                type="text"
+                id="reg-otp-input"
+                class="form-input mt-4"
+                placeholder="Enter 6-digit OTP"
+                maxlength="6"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+            >
+
+            <button
+                id="reg-otp-verify-btn"
+                class="btn btn-primary btn-full mt-4"
+            >
+                <i class="ph ph-shield-check"></i>
+                Verify Email
+            </button>
+
+            <button
+                id="reg-otp-resend-btn"
+                class="btn btn-secondary btn-full mt-2"
+            >
+                <i class="ph ph-arrow-clockwise"></i>
+                Resend OTP
+            </button>
+
+            <p
+                id="reg-otp-message"
+                class="mt-3 text-sm"
+            ></p>
+
+        </div>
+    </div>
+</div>
+
+    <!-- Guest Restriction Login Prompt Modal -->
+    <div id="login-prompt-modal" class="modal hidden">
+        <div class="modal-content text-center">
+            <span class="close-btn" id="prompt-close-btn">&times;</span>
+            <div class="modal-body">
+                <div class="prompt-modal-icon">
+                    <i class="ph-fill ph-lock-key text-blue"></i>
+                </div>
+                <h3>Login Required</h3>
+                <p class="mt-3 text-muted">Guest accounts are allowed to test the <strong>Website URL Scanner</strong>. To unlock Email, SMS, and Ransomware scanners, please sign in or register.</p>
+                
+                <div class="modal-buttons mt-4 flex-column gap-2" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <button id="prompt-goto-login-btn" class="btn btn-primary btn-full">
+                        <i class="ph ph-sign-in"></i> Sign In to Account
+                    </button>
+                    <button id="prompt-goto-register-btn" class="btn btn-secondary btn-full">
+                        <i class="ph ph-user-plus"></i> Register New Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Analysis Report Modal -->
+    <div id="report-modal" class="modal hidden">
+        <div class="modal-content max-w-600">
+            <span class="close-btn" id="report-close-btn">&times;</span>
+            <div class="modal-body">
+                <div class="report-header">
+                    <div id="report-icon" class="modal-icon-container">
+                        <!-- Icon injected -->
+                    </div>
+                    <div>
+                        <h3 id="report-title">Threat Assessment Report</h3>
+                        <span id="report-timestamp" class="text-muted text-sm"></span>
+                    </div>
+                </div>
+
+                <div id="report-body" class="report-details-box">
+                    <!-- Dynamic content -->
+                </div>
+
+                <div class="report-actions">
+                    <button id="print-report-btn" class="btn btn-secondary">
+                        <i class="ph ph-printer"></i> Print / Save Report
+                    </button>
+                    <button id="download-report-btn" class="btn btn-secondary">
+                        <i class="ph ph-download-simple"></i> Download Report
+                    </button>
+                    <button class="btn btn-primary close-modal-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Notification Modal -->
+    <div id="result-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body text-center">
+                <div id="modal-icon" class="modal-icon-container">
+                    <!-- Icon injected by JS -->
+                </div>
+                <h3 id="modal-title">Analysis Complete</h3>
+                <p id="modal-message">Your content has been analyzed successfully.</p>
+                <div class="modal-buttons mt-4">
+                    <button id="view-detailed-report-btn" class="btn btn-secondary">View Detailed Report</button>
+                    <button class="btn btn-primary close-modal-btn">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <i class="ph ph-spinner ph-spin" id="toast-icon"></i> <span id="toast-message">Processing...</span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

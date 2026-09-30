@@ -1,0 +1,363 @@
+{
+  "random_state": 42,
+  "models": {
+    "url": {
+      "artifact": "url_model.joblib",
+      "dataset": "Binary-Dataset-of-Phishing-and-Legitimate-URLs_dataset",
+      "metrics": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "confusion_matrix": [
+          [
+            1100,
+            0
+          ],
+          [
+            0,
+            1100
+          ]
+        ],
+        "classification_report": {
+          "phishing": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 1100.0
+          },
+          "legitimate": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 1100.0
+          },
+          "accuracy": 1.0,
+          "macro avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 2200.0
+          },
+          "weighted avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 2200.0
+          }
+        },
+        "model": "RandomForestClassifier",
+        "features": [
+          "dot_count",
+          "url_len",
+          "digit_count",
+          "special_count",
+          "hyphen_count",
+          "double_slash",
+          "single_slash",
+          "at_the_rate",
+          "protocol",
+          "protocol_count"
+        ],
+        "train_size": 8800,
+        "test_size": 2200,
+        "label_semantics": {
+          "0": "phishing",
+          "1": "legitimate"
+        },
+        "dataset_rows": 11000
+      },
+      "feature_schema": "url_feature_schema.json"
+    },
+    "email": {
+      "artifact": "email_model.joblib",
+      "dataset": "phishing_email_dataset_",
+      "metrics": {
+        "accuracy": 0.9910453216374269,
+        "precision": 0.9894235239423524,
+        "recall": 0.9934648150309254,
+        "f1": 0.9914400512432306,
+        "confusion_matrix": [
+          [
+            7756,
+            91
+          ],
+          [
+            56,
+            8513
+          ]
+        ],
+        "classification_report": {
+          "legitimate": {
+            "precision": 0.992831541218638,
+            "recall": 0.9884032114183765,
+            "f1-score": 0.9906124273580689,
+            "support": 7847.0
+          },
+          "phishing": {
+            "precision": 0.9894235239423524,
+            "recall": 0.9934648150309254,
+            "f1-score": 0.9914400512432306,
+            "support": 8569.0
+          },
+          "accuracy": 0.9910453216374269,
+          "macro avg": {
+            "precision": 0.9911275325804952,
+            "recall": 0.9909340132246509,
+            "f1-score": 0.9910262393006497,
+            "support": 16416.0
+          },
+          "weighted avg": {
+            "precision": 0.9910525877561325,
+            "recall": 0.9910453216374269,
+            "f1-score": 0.9910444393629391,
+            "support": 16416.0
+          }
+        },
+        "model": "TfidfVectorizer+LogisticRegression",
+        "train_size": 65661,
+        "test_size": 16416,
+        "dataset_rows": 82077,
+        "duplicates_removed": 409,
+        "label_semantics": {
+          "0": "legitimate",
+          "1": "phishing"
+        }
+      }
+    },
+    "sms": {
+      "artifact": "sms_model.joblib",
+      "dataset": "SMSSpamCollection",
+      "metrics": {
+        "accuracy": 0.9777562862669246,
+        "precision": 0.9090909090909091,
+        "recall": 0.916030534351145,
+        "f1": 0.9125475285171103,
+        "confusion_matrix": [
+          [
+            891,
+            12
+          ],
+          [
+            11,
+            120
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9878048780487805,
+            "recall": 0.9867109634551495,
+            "f1-score": 0.9872576177285318,
+            "support": 903.0
+          },
+          "spam": {
+            "precision": 0.9090909090909091,
+            "recall": 0.916030534351145,
+            "f1-score": 0.9125475285171103,
+            "support": 131.0
+          },
+          "accuracy": 0.9777562862669246,
+          "macro avg": {
+            "precision": 0.9484478935698448,
+            "recall": 0.9513707489031473,
+            "f1-score": 0.949902573122821,
+            "support": 1034.0
+          },
+          "weighted avg": {
+            "precision": 0.9778324119622417,
+            "recall": 0.9777562862669246,
+            "f1-score": 0.9777924130025201,
+            "support": 1034.0
+          }
+        },
+        "model": "TfidfVectorizer+LogisticRegression",
+        "train_size": 4135,
+        "test_size": 1034,
+        "dataset_rows": 5169,
+        "label_semantics": {
+          "0": "ham",
+          "1": "spam"
+        }
+      }
+    },
+    "ransomware": {
+      "artifact": "ransomware_model.joblib",
+      "dataset": "Ransomware_headers.csv",
+      "metrics": {
+        "accuracy": 0.9791666666666666,
+        "precision": 0.9666666666666667,
+        "recall": 0.9902439024390244,
+        "f1": 0.9783132530120482,
+        "confusion_matrix": [
+          [
+            220,
+            7
+          ],
+          [
+            2,
+            203
+          ]
+        ],
+        "classification_report": {
+          "goodware": {
+            "precision": 0.990990990990991,
+            "recall": 0.9691629955947136,
+            "f1-score": 0.9799554565701559,
+            "support": 227.0
+          },
+          "ransomware": {
+            "precision": 0.9666666666666667,
+            "recall": 0.9902439024390244,
+            "f1-score": 0.9783132530120482,
+            "support": 205.0
+          },
+          "accuracy": 0.9791666666666666,
+          "macro avg": {
+            "precision": 0.9788288288288288,
+            "recall": 0.979703449016869,
+            "f1-score": 0.979134354791102,
+            "support": 432.0
+          },
+          "weighted avg": {
+            "precision": 0.9794481981981982,
+            "recall": 0.9791666666666666,
+            "f1-score": 0.9791761701594797,
+            "support": 432.0
+          }
+        },
+        "model": "RandomForestClassifier",
+        "train_size": 1725,
+        "test_size": 432,
+        "dataset_rows": 2157,
+        "feature_count": 1024,
+        "label_semantics": {
+          "0": "goodware",
+          "1": "ransomware"
+        },
+        "feature_count_expected_at_inference": 1024
+      },
+      "feature_schema": "ransomware_feature_schema.json"
+    },
+    "malicious_file": {
+      "artifact": "malicious_file_model.joblib",
+      "dataset": "dataset_malwares.csv",
+      "metrics": {
+        "accuracy": 0.9903135355595207,
+        "precision": 0.9888059701492538,
+        "recall": 0.9982876712328768,
+        "f1": 0.9935241990456715,
+        "confusion_matrix": [
+          [
+            970,
+            33
+          ],
+          [
+            5,
+            2915
+          ]
+        ],
+        "classification_report": {
+          "benign": {
+            "precision": 0.9948717948717949,
+            "recall": 0.967098703888335,
+            "f1-score": 0.980788675429727,
+            "support": 1003.0
+          },
+          "malicious": {
+            "precision": 0.9888059701492538,
+            "recall": 0.9982876712328768,
+            "f1-score": 0.9935241990456715,
+            "support": 2920.0
+          },
+          "accuracy": 0.9903135355595207,
+          "macro avg": {
+            "precision": 0.9918388825105243,
+            "recall": 0.9826931875606059,
+            "f1-score": 0.9871564372376993,
+            "support": 3923.0
+          },
+          "weighted avg": {
+            "precision": 0.9903568297456619,
+            "recall": 0.9903135355595207,
+            "f1-score": 0.990268086329181,
+            "support": 3923.0
+          }
+        },
+        "model": "RandomForestClassifier",
+        "train_size": 15688,
+        "test_size": 3923,
+        "dataset_rows": 19611,
+        "feature_count": 73,
+        "label_semantics": {
+          "0": "benign",
+          "1": "malicious"
+        },
+        "excluded_columns": [
+          "Name",
+          "Malware",
+          "SectionMaxPhysical",
+          "SectionMinPhysical",
+          "SectionMaxVirtual",
+          "SectionMinVirtual"
+        ]
+      },
+      "feature_schema": "malicious_file_feature_schema.json"
+    },
+    "pdf": {
+      "artifact": "pdf_model.joblib",
+      "dataset": "EMBER2024 supplied PDF/ELF JSONL",
+      "metrics": {
+        "accuracy": 0.9439166666666666,
+        "precision": 0.9898841272760713,
+        "recall": 0.897,
+        "f1": 0.9411558975255749,
+        "confusion_matrix": [
+          [
+            11890,
+            110
+          ],
+          [
+            1236,
+            10764
+          ]
+        ],
+        "train_size": 40000,
+        "test_size": 24000,
+        "feature_count": 696,
+        "label_semantics": {
+          "0": "benign",
+          "1": "malicious"
+        }
+      },
+      "feature_schema": "pdf_feature_schema.json"
+    },
+    "elf": {
+      "artifact": "elf_model.joblib",
+      "dataset": "EMBER2024 supplied PDF/ELF JSONL",
+      "metrics": {
+        "accuracy": 0.9425,
+        "precision": 0.945619335347432,
+        "recall": 0.939,
+        "f1": 0.9422980431510286,
+        "confusion_matrix": [
+          [
+            5676,
+            324
+          ],
+          [
+            366,
+            5634
+          ]
+        ],
+        "train_size": 40000,
+        "test_size": 12000,
+        "feature_count": 696,
+        "label_semantics": {
+          "0": "benign",
+          "1": "malicious"
+        }
+      },
+      "feature_schema": "elf_feature_schema.json"
+    }
+  }
+}

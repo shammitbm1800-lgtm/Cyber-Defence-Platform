@@ -1,0 +1,143 @@
+{
+  "models": {
+    "url": {
+      "model": "RandomForestClassifier",
+      "dataset_rows": 11000,
+      "train_size": 8800,
+      "test_size": 2200,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          1100,
+          0
+        ],
+        [
+          0,
+          1100
+        ]
+      ]
+    },
+    "email": {
+      "model": "TfidfVectorizer+LogisticRegression",
+      "dataset_rows": 82077,
+      "train_size": 65661,
+      "test_size": 16416,
+      "accuracy": 0.9910453216374269,
+      "precision": 0.9894235239423524,
+      "recall": 0.9934648150309254,
+      "f1": 0.9914400512432306,
+      "confusion_matrix": [
+        [
+          7756,
+          91
+        ],
+        [
+          56,
+          8513
+        ]
+      ]
+    },
+    "sms": {
+      "model": "TfidfVectorizer+LogisticRegression",
+      "dataset_rows": 5169,
+      "train_size": 4135,
+      "test_size": 1034,
+      "accuracy": 0.9777562862669246,
+      "precision": 0.9090909090909091,
+      "recall": 0.916030534351145,
+      "f1": 0.9125475285171103,
+      "confusion_matrix": [
+        [
+          891,
+          12
+        ],
+        [
+          11,
+          120
+        ]
+      ]
+    },
+    "ransomware": {
+      "model": "RandomForestClassifier",
+      "dataset_rows": 2157,
+      "train_size": 1725,
+      "test_size": 432,
+      "accuracy": 0.9791666666666666,
+      "precision": 0.9666666666666667,
+      "recall": 0.9902439024390244,
+      "f1": 0.9783132530120482,
+      "confusion_matrix": [
+        [
+          220,
+          7
+        ],
+        [
+          2,
+          203
+        ]
+      ]
+    },
+    "malicious_file": {
+      "model": "RandomForestClassifier",
+      "dataset_rows": 19611,
+      "train_size": 15688,
+      "test_size": 3923,
+      "accuracy": 0.9903135355595207,
+      "precision": 0.9888059701492538,
+      "recall": 0.9982876712328768,
+      "f1": 0.9935241990456715,
+      "confusion_matrix": [
+        [
+          970,
+          33
+        ],
+        [
+          5,
+          2915
+        ]
+      ]
+    },
+    "pdf": {
+      "model": "RandomForestClassifier",
+      "train_size": 40000,
+      "test_size": 24000,
+      "accuracy": 0.9439166666666666,
+      "precision": 0.9898841272760713,
+      "recall": 0.897,
+      "f1": 0.9411558975255749,
+      "confusion_matrix": [
+        [
+          11890,
+          110
+        ],
+        [
+          1236,
+          10764
+        ]
+      ]
+    },
+    "elf": {
+      "model": "RandomForestClassifier",
+      "train_size": 40000,
+      "test_size": 12000,
+      "accuracy": 0.9425,
+      "precision": 0.945619335347432,
+      "recall": 0.939,
+      "f1": 0.9422980431510286,
+      "confusion_matrix": [
+        [
+          5676,
+          324
+        ],
+        [
+          366,
+          5634
+        ]
+      ]
+    }
+  },
+  "random_state": 42
+}

@@ -1,0 +1,52 @@
+{
+  "accuracy": 0.9910453216374269,
+  "precision": 0.9894235239423524,
+  "recall": 0.9934648150309254,
+  "f1": 0.9914400512432306,
+  "confusion_matrix": [
+    [
+      7756,
+      91
+    ],
+    [
+      56,
+      8513
+    ]
+  ],
+  "classification_report": {
+    "legitimate": {
+      "precision": 0.992831541218638,
+      "recall": 0.9884032114183765,
+      "f1-score": 0.9906124273580689,
+      "support": 7847.0
+    },
+    "phishing": {
+      "precision": 0.9894235239423524,
+      "recall": 0.9934648150309254,
+      "f1-score": 0.9914400512432306,
+      "support": 8569.0
+    },
+    "accuracy": 0.9910453216374269,
+    "macro avg": {
+      "precision": 0.9911275325804952,
+      "recall": 0.9909340132246509,
+      "f1-score": 0.9910262393006497,
+      "support": 16416.0
+    },
+    "weighted avg": {
+      "precision": 0.9910525877561325,
+      "recall": 0.9910453216374269,
+      "f1-score": 0.9910444393629391,
+      "support": 16416.0
+    }
+  },
+  "model": "TfidfVectorizer+LogisticRegression",
+  "dataset_rows": 82077,
+  "train_size": 65661,
+  "test_size": 16416,
+  "duplicates_removed": 409,
+  "label_semantics": {
+    "0": "legitimate",
+    "1": "phishing"
+  }
+}

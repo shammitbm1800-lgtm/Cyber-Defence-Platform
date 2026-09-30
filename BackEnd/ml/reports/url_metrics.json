@@ -1,0 +1,63 @@
+{
+  "accuracy": 1.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "confusion_matrix": [
+    [
+      1100,
+      0
+    ],
+    [
+      0,
+      1100
+    ]
+  ],
+  "classification_report": {
+    "phishing": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1100.0
+    },
+    "legitimate": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1100.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2200.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2200.0
+    }
+  },
+  "model": "RandomForestClassifier",
+  "dataset_rows": 11000,
+  "train_size": 8800,
+  "test_size": 2200,
+  "features": [
+    "dot_count",
+    "url_len",
+    "digit_count",
+    "special_count",
+    "hyphen_count",
+    "double_slash",
+    "single_slash",
+    "at_the_rate",
+    "protocol",
+    "protocol_count"
+  ],
+  "label_semantics": {
+    "0": "phishing",
+    "1": "legitimate"
+  }
+}
